@@ -14,7 +14,7 @@ const requestEndpoint = "https://npiregistry.cms.hhs.gov/api/?version=2.1";
 
 // This function runs if the http://localhost:5000/getData endpoint
 // is requested with a GET request
-app.get('/getData', cors(corsOptions), async (req, res) => {
+app.get('/api-nppes-getData', cors(corsOptions), async (req, res) => {
     const fetchOptions = {
         method: 'GET'
     }

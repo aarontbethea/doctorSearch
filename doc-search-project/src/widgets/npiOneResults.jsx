@@ -31,12 +31,12 @@ function IndResult(props) {
           {/* NPI Number */}
           <small>{props.data.number}</small>
         </div>
-        <p className="mb-1">
-          <div className="d-flex align-items-left">
+        <div className="d-flex align-items-left">
             <p>
               <i>{props.data.taxonomies[0].desc}</i>
             </p>
-          </div>
+        </div>
+        <p className="mb-1">
           <img src={bldg} alt="practice-address" />: &nbsp; {addr}
           <br />
           <img src={tel} alt="practice-phone" />: {rawAddr.telephone_number}
@@ -47,9 +47,9 @@ function IndResult(props) {
             : "Not Registered"}
         </p>
         {/* Last Updated */}
-        <small>
+        {/* <small>
           Record Last Updated: {formatDate(props.data.basic.last_updated)}
-        </small>
+        </small> */}
       </div>
     </div>
     // <div id="result">

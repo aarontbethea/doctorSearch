@@ -4,25 +4,28 @@ import { useState } from "react";
 
 //Set up a search form
 
-const BASEURL = "http://localhost:5000/getData";
+const BASEURL = "http://localhost:5000/api-nppes-getData";
 
 function IndSearchForm(props) {
   //set up state value or toggle
   const [searchType, setSearchType] = useState("NPI-1");
 
   //intro message
-  const introMsg = <><p>
-    This tool provides results from the CMS/NPPES provider registry.</p></>
+  const introMsg = (
+    <>
+      <p>This tool provides results from the CMS/NPPES provider registry.</p>
+    </>
+  );
 
   let searchName;
   if (searchType === "NPI-1") {
     searchName = (
       <>
-        <div className="form-group row">
+        <div className="form-group row justify-content-between">
           <label htmlFor="lname" className="col-sm-2 col-form-label">
             Last Name
           </label>
-          <div className="col-sm-10">
+          <div className="col-sm-4">
             <input
               key="lname"
               className="form-control form-control-sm"
@@ -32,12 +35,10 @@ function IndSearchForm(props) {
               placeholder="Feelgood"
             ></input>
           </div>
-        </div>
-        <div className="form-group row">
           <label htmlFor="fname" className="col-sm-2 col-form-label">
             First Name
           </label>
-          <div className="col-sm-10">
+          <div className="col-sm-4">
             <input
               key="fname"
               className="form-control form-control-sm"
@@ -53,7 +54,7 @@ function IndSearchForm(props) {
   } else {
     searchName = (
       <>
-        <div className="form-group row">
+        <div className="form-group row justify-content-center">
           <label htmlFor="orgname" className="col-sm-2 col-form-label">
             Org. Name
           </label>
@@ -84,7 +85,7 @@ function IndSearchForm(props) {
   const handlesubmit = (e) => {
     e.preventDefault();
     //get input values here
-    
+
     const inputData = {
       number: e.target.npinbr.value.trim(),
       //last_name: e.target.lname.value,
@@ -92,12 +93,17 @@ function IndSearchForm(props) {
       enumeration_type: searchType,
       //organization_name: e.target.orgname.value
     };
-    if (searchType === 'NPI-1') {
+    if (searchType === "NPI-1") {
       inputData.last_name = e.target.lname.value.trim();
       inputData.first_name = e.target.fname.value.trim();
     } else {
       inputData.organization_name = e.target.orgname.value.trim();
     }
+
+    //get city state and zip
+    inputData.city = e.target.city.value.trim();
+    inputData.state = e.target.state.value.trim();
+    inputData.postal_code = e.target.postal_code.value.trim();
 
     //build url
     var queryUrl = new URL(BASEURL);
@@ -158,11 +164,11 @@ function IndSearchForm(props) {
         </div>
 
         {/* NPI Number */}
-        <div className="form-group row">
+        <div className="form-group row justify-content-center">
           <label htmlFor="npinbr" className="col-sm-2 col-form-label">
             NPI Number:
           </label>
-          <div className="col-sm-10">
+          <div className="col-sm">
             <input
               className="form-control form-control-sm"
               type="text"
@@ -173,9 +179,54 @@ function IndSearchForm(props) {
           </div>
         </div>
         {searchName}
+        {/* Address, city state and zip */}
+        <div className="form-group row justify-content-between">
+          <label htmlFor="city" className="col-sm-2 col-form-label">
+            City
+          </label>
+          <div className="col-sm-4">
+            <input
+              key="city"
+              name="city"
+              id="city"
+              type="text"
+              className="form-control form-control-sm"
+              placeholder="Woodlawn"
+            />
+          </div>
+          <label htmlFor="state" className="col-sm-2 col-form-label">
+            State
+          </label>
+          <div className="col-sm-4">
+            <input
+              key="state"
+              name="state"
+              id="state"
+              type="text"
+              className="form-control form-control-sm"
+              placeholder="MD"
+            />
+          </div>
+        </div>
+        <div className="form-group row justify-content-center">
+          <label htmlFor="postal_code" className="col-sm-2 col-form-label">
+            Zip
+          </label>
+          <div className="col-sm-2">
+            <input
+              key="postal_code"
+              name="postal_code"
+              id="postal_code"
+              type="text"
+              className="form-control form-control-sm"
+              placeholder="21244"
+            />
+          </div>
+        </div>
         {/* Submit button */}
-        <button type="submit" className="btn btn-outline-dark btn-sm">Search CMS Database</button>
-
+        <button type="submit" className="btn btn-outline-dark btn-sm">
+          Search CMS Database
+        </button>
       </form>
     </div>
   );

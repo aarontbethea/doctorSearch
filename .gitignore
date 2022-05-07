@@ -1,6 +1,7 @@
 .pack
 .old
 .DS_Store
+**/node_modules
 doc-search-project/node_modules/
 backend/node_modules/
 doc-search-project/node_modules/.package-lock.json
