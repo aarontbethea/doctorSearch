@@ -74,7 +74,7 @@ function IndSearchForm(props) {
   }
 
   //handle radio button toggle change
-  const onRadioToggle = (e) => {
+  const onProviderTypeChange = (e) => {
     //log the value
     console.log(e.target.value);
     setSearchType(e.target.value);
@@ -131,11 +131,11 @@ function IndSearchForm(props) {
 
   return (
     <div id="medicare-search">
-      <h3>Medicare Provider Search</h3>
+      <h3>HealthCare Provider NPI Search</h3>
       {introMsg}
       <form onSubmit={handlesubmit}>
         {/* Toggle between Individual and Organizational Providers */}
-        <div className="form-check form-check-inline">
+        {/* <div className="form-check form-check-inline">
           <input
             className="form-check-input"
             type="radio"
@@ -161,14 +161,14 @@ function IndSearchForm(props) {
           <label className="form-check-label" htmlFor="npiTypeOrg">
             Organization
           </label>
-        </div>
+        </div> */}
 
         {/* NPI Number */}
-        <div className="form-group row justify-content-center">
+        <div className="form-group row justify-content-between">
           <label htmlFor="npinbr" className="col-sm-2 col-form-label">
             NPI Number:
           </label>
-          <div className="col-sm">
+          <div className="col-sm-4" id="npientry">
             <input
               className="form-control form-control-sm"
               type="text"
@@ -177,6 +177,18 @@ function IndSearchForm(props) {
               placeholder="1234567890"
             ></input>
           </div>
+          <label htmlFor="npiType" className="col-sm-2 col-form-label">
+            Type
+          </label>
+            <select className="form-select form-select-sm" name="npiType" id="npiType" aria-label="Default select example" onChange={onProviderTypeChange}>
+              <option value="NPI-1" defaultValue>
+                Individual
+              </option>
+              <option value="NPI-2">
+                Organization
+                </option>
+            </select>
+          
         </div>
         {searchName}
         {/* Address, city state and zip */}
@@ -224,6 +236,7 @@ function IndSearchForm(props) {
           </div>
         </div>
         {/* Submit button */}
+        <br/>
         <button type="submit" className="btn btn-outline-dark btn-sm">
           Search CMS Database
         </button>
