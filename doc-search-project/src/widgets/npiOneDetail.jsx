@@ -19,7 +19,7 @@ function NpiOneResultModal(props) {
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title" id="modal-result-title">
-                {basic.first_name} {basic.last_name}
+                Provider Detail: {basic.first_name} {basic.last_name}
               </h5>
               <button
                 type="button"
@@ -31,7 +31,23 @@ function NpiOneResultModal(props) {
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div className="modal-body">...</div>
+            <div className="modal-body">
+                Provider Info 
+                <hr/>
+                {Object.keys(basic).map((field,i) => {
+                    return(
+                    <p key={i}>{field}: {basic[field]}</p>
+                    )
+                })}
+                Taxonomy
+                <br/>
+                Address(es)
+                <br/>
+                Date Created 
+                <br/>
+                Date Updated
+               
+            </div>
             <div className="modal-footer">
               <button
                 type="button"
