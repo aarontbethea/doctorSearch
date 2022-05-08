@@ -7,6 +7,18 @@ import tel from "../assets/telephone.svg";
 import fax from "../assets/printer.svg";
 
 function IndResult(props) {
+
+  //set state values when function executed
+  const setModalParams = (e) => {
+    //prevent default behavior
+    e.preventDefault();
+    if (!props.show) {
+      //console.log(props)
+      props.setShow(true);
+      props.setEntry(props.data)
+      console.log("Modal data set")
+    }
+  }
   //convert "last_updated" date to mm/dd/yyyy
   const rawAddr = props.data.addresses[0];
   const addr = (
@@ -25,8 +37,8 @@ function IndResult(props) {
       <div className="list-group-item list-group-item-action flex-column align-items-start">
         <div className="d-flex w-100 justify-content-between">
           <h5 className="mb-1">
-            {props.data.basic.first_name} {props.data.basic.last_name}&nbsp;
-            {props.data.basic.credential}
+            <div onClick={setModalParams} name="provName" id="provName" style={{cursor:"pointer"}}>{props.data.basic.first_name} {props.data.basic.last_name}&nbsp;
+            {props.data.basic.credential}</div>
           </h5>
           {/* NPI Number */}
           <small>{props.data.number}</small>
