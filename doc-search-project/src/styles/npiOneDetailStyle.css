@@ -14,6 +14,7 @@
 .modal-content {
     width: 500px;
     background-color: #fff;
+    max-height:500px;
 }
 
 .modal-head , .modal-footer {
@@ -30,6 +31,7 @@
 }
 .modal-body {
     overflow-y: auto;
+    font-size:small;
     padding: 10px;
     height:50%;
     border-top: 1px solid #eee;

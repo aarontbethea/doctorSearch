@@ -1,6 +1,7 @@
 import React from "react";
 import "../styles/npiOneDetailStyle.css";
 import toTitleCase from "../utilities/casing";
+import RenderList from "./listRender";
 
 function NpiOneResultModal(props) {
 
@@ -8,7 +9,6 @@ function NpiOneResultModal(props) {
     const checkVal = (value) =>{
         let new_value;
         if (typeof value === 'boolean'){
-            console.log("Bool")
             if (value === true) {
                 new_value = "YES";
             } else {
@@ -33,6 +33,9 @@ function NpiOneResultModal(props) {
   } else {
     const basic = props.entry.basic;
     const taxs = props.entry.taxonomies;
+    const addrs = props.entry.addresses;
+    const dtCreated = new Date(props.entry.created_epoch * 1000).toLocaleDateString("en-US")
+    const dtUpdated = new Date(props.entry.last_updated_epoch * 1000).toLocaleDateString("en-US")
     return (
       // <!-- Modal -->
       <div className="modal" id="modal-result">
@@ -67,23 +70,26 @@ function NpiOneResultModal(props) {
                 })}
                 <hr />
               </div>
+              {/* Taxonomies */}
+                <RenderList dtLabel="Taxonomies" listData={taxs}/>
+              <br />
+              {/* Addresses */}
               <div className="container">
-                <h6>Taxonomies/Specialties</h6>
-                {taxs.map((tax, i) => {
+                <h6>Addresses</h6>
+                {addrs.map((tax, i) => {
                   return (
                     <>
                       <div key={i} id={i} className="container">
                          {""}
-                        {Object.keys(taxs[i]).map((t, indx) => {
+                        {Object.keys(addrs[i]).map((t, indx) => {
                           return (
                             <div className="row">
-                              {console.log(t)}
                               {/* Add Taxonomy data here */}
                               <div className="col-sm">
                                 {toTitleCase(t.toString().replace("_", " "))}
                               </div>
                               <div className="col-sm">
-                                  {checkVal(taxs[i][t])}
+                                  {checkVal(addrs[i][t])}
                                   </div>
                             </div>
                           );
@@ -94,11 +100,26 @@ function NpiOneResultModal(props) {
                 })}
               </div>
               <br />
-              Address(es)
+              {/* date created / last updated  */}
+              <div className="container" id="dates">
+                  <div className="row">
+                      <div className="col-sm">
+                            Date Created
+                      </div>
+                      <div className="col-sm" id="dt-created-val">
+                          {dtCreated}
+                      </div>
+                  </div>
+                  <div className="row">
+                      <div className="col-sm">
+                          Date Updated
+                      </div>
+                      <div className="col-sm">
+                          {dtUpdated}
+                      </div>
+                  </div>
+              </div>
               <br />
-              Date Created
-              <br />
-              Date Updated
             </div>
             <div className="modal-footer">
               <button
