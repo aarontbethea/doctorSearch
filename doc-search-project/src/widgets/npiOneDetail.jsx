@@ -2,6 +2,7 @@ import React from "react";
 import "../styles/npiOneDetailStyle.css";
 import toTitleCase from "../utilities/casing";
 import RenderList from "./listRender";
+import convertToWrittenDate from "../utilities/dateandtime";
 
 function NpiOneResultModal(props) {
 
@@ -34,8 +35,9 @@ function NpiOneResultModal(props) {
     const basic = props.entry.basic;
     const taxs = props.entry.taxonomies;
     const addrs = props.entry.addresses;
-    const dtCreated = new Date(props.entry.created_epoch * 1000).toLocaleDateString("en-US")
-    const dtUpdated = new Date(props.entry.last_updated_epoch * 1000).toLocaleDateString("en-US")
+    const idents = props.entry.identifiers;
+    const dtCreated = convertToWrittenDate(props.entry.created_epoch);
+    const dtUpdated = convertToWrittenDate(props.entry.last_updated_epoch);
     return (
       // <!-- Modal -->
       <div className="modal" id="modal-result">
@@ -61,10 +63,10 @@ function NpiOneResultModal(props) {
                 {Object.keys(basic).map((field, i) => {
                   return (
                     <div key={i} id={i} className="row">
-                      <div className="col-sm">
+                      <div className="col-sm" id="field-lbl">
                         {toTitleCase(field.toString().replace("_", " "))}
                       </div>
-                      <div className="col-sm">{basic[field]}</div>
+                      <div className="col-sm" id="field-value">{basic[field]}</div>
                     </div>
                   );
                 })}
@@ -72,34 +74,14 @@ function NpiOneResultModal(props) {
               </div>
               {/* Taxonomies */}
                 <RenderList dtLabel="Taxonomies" listData={taxs}/>
-              <br />
+              <hr />
               {/* Addresses */}
-              <div className="container">
-                <h6>Addresses</h6>
-                {addrs.map((tax, i) => {
-                  return (
-                    <>
-                      <div key={i} id={i} className="container">
-                         {""}
-                        {Object.keys(addrs[i]).map((t, indx) => {
-                          return (
-                            <div className="row">
-                              {/* Add Taxonomy data here */}
-                              <div className="col-sm">
-                                {toTitleCase(t.toString().replace("_", " "))}
-                              </div>
-                              <div className="col-sm">
-                                  {checkVal(addrs[i][t])}
-                                  </div>
-                            </div>
-                          );
-                        })}
-                      </div>
-                    </>
-                  );
-                })}
-              </div>
-              <br />
+                <RenderList dtLabel="Addresses" listData={addrs} />
+                {/* Identifiers */}
+              <hr />
+                <RenderList dtLabel="Identifiers" listData={idents}/>
+              <hr />
+                
               {/* date created / last updated  */}
               <div className="container" id="dates">
                   <div className="row">

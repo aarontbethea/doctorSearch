@@ -9,6 +9,7 @@ const checkVal = (value) =>{
             new_value = "NO";
         }
     } else {
+        
         new_value = value;
     };
     return new_value

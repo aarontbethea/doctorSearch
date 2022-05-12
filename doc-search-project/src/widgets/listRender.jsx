@@ -4,16 +4,46 @@ import toTitleCase from "../utilities/casing";
 
 function RenderList(props) {
   //this is the list
-  console.log(`Date Label: ${props.dtLabel}`);
-  const listData = props.listData;
-  const element = (
-    <>
-      {listData.map((list, indx) => {
-        return <p>{indx}</p>;
-      })}
-    </>
-  );
-  return (element)
+  if (typeof props.listData !== "undefined") {
+    const listData = props.listData;
+    const element = (
+      <>
+        <h6>
+          {props.dtLabel}: {listData.length}
+        </h6>
+        {listData.map((list, indx) => {
+          return (
+            <>
+              <div
+                key={indx}
+                id={`${props.dtLabel}-${indx}`}
+                className="container"
+              >
+                <small><b>--{indx +1}--</b></small>
+                {/* iterate through each item and display */}
+                {Object.keys(listData[indx]).map((l, i) => {
+                  return (
+                    // Add a row element
+                    <div className="row" key={i}>
+                      <div className="col-sm" id="field-lbl">
+                        {toTitleCase(l.toString().replace("_", " "))}
+                      </div>
+                      <div className="col-sm" id="field-value">
+                        {checkVal(listData[indx][l])}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </>
+          );
+        })}
+      </>
+    );
+    return element;
+  } else {
+    return null;
+  }
 }
 
 export default RenderList;
