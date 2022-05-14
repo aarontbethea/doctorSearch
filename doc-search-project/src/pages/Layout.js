@@ -5,10 +5,8 @@ import { Navbar, Nav } from "react-bootstrap";
 const Layout = () => {
   return (
     <>
-      <Navbar bg="light" expand="lg">
-        <LinkContainer to="/">
-          <Navbar.Brand>Payeresource</Navbar.Brand>
-        </LinkContainer>
+      <Navbar bg="dark" variant="dark" expand="lg">
+        
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">

@@ -18,7 +18,7 @@ function ResultsViewer(props) {
   return (
     <div id="results">
       <div className="d-flex justify-content-start">
-        <h3>Results: {numResults}</h3>
+        <h4>Results: {numResults}</h4>
       </div>
 
       <br />
