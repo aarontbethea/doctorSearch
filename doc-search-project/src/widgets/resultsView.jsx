@@ -17,6 +17,8 @@ function ResultsViewer(props) {
 
   return (
     <div id="results">
+      <span className="badge badge-pill badge-danger">test</span>
+
       <div className="d-flex justify-content-start">
         <h4>Results: {numResults}</h4>
       </div>

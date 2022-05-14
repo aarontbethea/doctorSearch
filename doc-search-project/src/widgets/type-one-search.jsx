@@ -7,8 +7,10 @@ import { useState } from "react";
 const BASEURL = "http://localhost:5000/api-nppes-getData";
 
 function IndSearchForm(props) {
-  //set up state value or toggle
+  //set up state value for toggle
   const [searchType, setSearchType] = useState("NPI-1");
+
+
 
   //intro message
   const introMsg = (

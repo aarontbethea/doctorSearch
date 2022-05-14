@@ -1,5 +1,6 @@
 //Individually Rendered results
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { Badge } from "react-bootstrap";
 import "../styles/npiOneStyle.css";
 //icon
 import bldg from "../assets/building.svg";
@@ -7,6 +8,9 @@ import tel from "../assets/telephone.svg";
 import fax from "../assets/printer.svg";
 
 function IndResult(props) {
+  /* set up state value for OandP API results (json returned as list containing
+    NPI, LAST_NAME, FIRST_NAME, PARTB, DME, HHA, */
+  const [oandpData, setOandpData] = useState([]);
 
   //set state values when function executed
   const setModalParams = (e) => {
@@ -15,10 +19,10 @@ function IndResult(props) {
     if (!props.show) {
       //console.log(props)
       props.setShow(true);
-      props.setEntry(props.data)
-      console.log("Modal data set")
+      props.setEntry(props.data);
+      console.log("Modal data set");
     }
-  }
+  };
   //convert "last_updated" date to mm/dd/yyyy
   const rawAddr = props.data.addresses[0];
   const addr = (
@@ -35,39 +39,112 @@ function IndResult(props) {
 
   let nameField;
   let faxField;
-  if (props.data.enumeration_type === 'NPI-1') {
-    nameField = <div onClick={setModalParams} name="provName" id="provName" style={{cursor:"pointer"}}>{props.data.basic.first_name} {props.data.basic.last_name}&nbsp;
-    {props.data.basic.credential}</div>
-    faxField = <><img src={fax} alt="fax-number" />:{" "}
-    {rawAddr.fax_number
-      ? rawAddr.fax_number
-      : "Not Registered"}</>;
+  if (props.data.enumeration_type === "NPI-1") {
+    nameField = (
+      <div
+        onClick={setModalParams}
+        name="provName"
+        id="provName"
+        style={{ cursor: "pointer" }}
+      >
+        {props.data.basic.first_name} {props.data.basic.last_name}&nbsp;
+        {props.data.basic.credential}
+      </div>
+    );
+    faxField = (
+      <>
+        <img src={fax} alt="fax-number" />:{" "}
+        {rawAddr.fax_number ? rawAddr.fax_number : "Not Registered"}
+      </>
+    );
   } else {
-    nameField = <div onClick={setModalParams} name="orgName" id="orgName" style={{cursor:"pointer"}}>{props.data.basic.organization_name} {props.data.basic.last_name}&nbsp;
-    {props.data.basic.credential}</div>;
+    nameField = (
+      <div
+        onClick={setModalParams}
+        name="orgName"
+        id="orgName"
+        style={{ cursor: "pointer" }}
+      >
+        {props.data.basic.organization_name} {props.data.basic.last_name}&nbsp;
+        {props.data.basic.credential}
+      </div>
+    );
     faxField = null;
   }
 
-
-  function formatDate(date) {
+  //handle date formatting
+  const formatDate = (date) => {
     const dateObj = new Date(date + "T00:00:00");
     return new Intl.DateTimeFormat("en-US").format(dateObj);
+  };
+
+  //search result for PECOS enrollment
+
+  useEffect(() => {
+    const checkPecosEnrollment = async (npi) => {
+      console.log("Checking OandP data");
+      const BASEURL = "http://localhost:5000/api-oandp-getData";
+      var queryUrl = new URL(BASEURL);
+      queryUrl.searchParams.append("npi", npi);
+      const response = await fetch(queryUrl);
+      const jsonData = await response.json();
+      setOandpData(jsonData);
+      console.log("Pecos Data Returned");
+      console.log(jsonData);
+    };
+    // call the function
+    checkPecosEnrollment(props.data.number);
+  }, [props.data.number]);
+
+  //launch pecos enrollment query
+  const pecosCols = ["DME", "HHA", "PARTB", "PMD"];
+  let pecosDisplay;
+  if (oandpData.length !== 0) {
+    pecosDisplay = (
+      <>
+        {" "}
+        <div className="flex justify-content-start" id="pecos-enroll">
+          <div className="row">
+            <div className="col-sm-4">PECOS Enrollment:</div>
+            {pecosCols.map((p, i) => {
+              return (
+                <>
+                  {console.log(oandpData[0][p])}
+                  {console.log(p)}
+                  <div className="col-sm">
+                  {oandpData[0][p] === 'Y'? (
+                  <Badge bg="success">{p}</Badge>
+                  ):(<Badge bg="danger">{p}</Badge>)}
+                  </div>
+                </>
+              );
+            })}
+          </div>
+        </div>
+      </>
+    );
+  } else {
+    pecosDisplay = (
+      <>
+        <p>Provider is NOT PECOS Enrolled</p>
+        
+      </>
+    );
   }
   return (
     <div className="list-group" id="result">
       <div className="list-group-item list-group-item-action flex-column align-items-start">
         <div className="d-flex w-100 justify-content-between">
-          <h5 className="mb-1">
-            {nameField}
-          </h5>
+          <h5 className="mb-1">{nameField}</h5>
           {/* NPI Number */}
           <small>{props.data.number}</small>
         </div>
         <div className="d-flex align-items-left">
-            <p>
-              <i>{props.data.taxonomies[0].desc}</i>
-            </p>
+          <p>
+            <i>{props.data.taxonomies[0].desc}</i>
+          </p>
         </div>
+        {pecosDisplay}
         <p className="mb-1">
           <img src={bldg} alt="practice-address" />: &nbsp; {addr}
           <br />
@@ -82,16 +159,6 @@ function IndResult(props) {
         </small> */}
       </div>
     </div>
-    // <div id="result">
-    //     <p>{props.number}</p>
-    //     <ul>
-    //         <li>Credential: {props.basic.credential}</li>
-    //         <li>
-    //             Last Name: {props.basic.last_name}
-    //         </li>
-    //         <li>First Name: {props.basic.first_name}</li>
-    //     </ul>
-    // </div>
   );
 }
 
