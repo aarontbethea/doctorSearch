@@ -25,10 +25,10 @@ function RenderList(props) {
                   return (
                     // Add a row element
                     <div className="row" key={i}>
-                      <div className="col-sm" id="field-lbl">
+                      <div className="col-sm" id="field-lbl" key={`label-${i}`}>
                         {toTitleCase(l.toString().replace("_", " "))}
                       </div>
-                      <div className="col-sm" id="field-value">
+                      <div className="col-sm" id="field-value" key={`value-${i}`}>
                         {checkVal(listData[indx][l])}
                       </div>
                     </div>

@@ -28,6 +28,27 @@ function IndResult(props) {
       ,&nbsp;{rawAddr.state}&nbsp;{rawAddr.postal_code.toString().slice(0, 5)}
     </>
   );
+
+  //conditional rendering!!!!
+  //render the name element. Organization Name for NPI-2, First/Last Name for NPI-1
+  //handle fax element, display fax component, otherwise display nothing
+
+  let nameField;
+  let faxField;
+  if (props.data.enumeration_type === 'NPI-1') {
+    nameField = <div onClick={setModalParams} name="provName" id="provName" style={{cursor:"pointer"}}>{props.data.basic.first_name} {props.data.basic.last_name}&nbsp;
+    {props.data.basic.credential}</div>
+    faxField = <><img src={fax} alt="fax-number" />:{" "}
+    {rawAddr.fax_number
+      ? rawAddr.fax_number
+      : "Not Registered"}</>;
+  } else {
+    nameField = <div onClick={setModalParams} name="orgName" id="orgName" style={{cursor:"pointer"}}>{props.data.basic.organization_name} {props.data.basic.last_name}&nbsp;
+    {props.data.basic.credential}</div>;
+    faxField = null;
+  }
+
+
   function formatDate(date) {
     const dateObj = new Date(date + "T00:00:00");
     return new Intl.DateTimeFormat("en-US").format(dateObj);
@@ -37,8 +58,7 @@ function IndResult(props) {
       <div className="list-group-item list-group-item-action flex-column align-items-start">
         <div className="d-flex w-100 justify-content-between">
           <h5 className="mb-1">
-            <div onClick={setModalParams} name="provName" id="provName" style={{cursor:"pointer"}}>{props.data.basic.first_name} {props.data.basic.last_name}&nbsp;
-            {props.data.basic.credential}</div>
+            {nameField}
           </h5>
           {/* NPI Number */}
           <small>{props.data.number}</small>
@@ -53,10 +73,8 @@ function IndResult(props) {
           <br />
           <img src={tel} alt="practice-phone" />: {rawAddr.telephone_number}
           <br />
-          <img src={fax} alt="fax-number" />:{" "}
-          {rawAddr.fax_number
-            ? rawAddr.fax_number
-            : "Not Registered"}
+          {/* render fax number */}
+          {faxField}
         </p>
         {/* Last Updated */}
         {/* <small>
