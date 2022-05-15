@@ -41,8 +41,7 @@ app.get("/api-oandp-getData", cors(corsOptions), async (req, res) => {
   const fetchOptions = {
     method: "GET",
   };
-  console.log("Query Params");
-  console.log(req.query);
+
   var url = new URL(requestEndpoint);
 
   /*
@@ -56,7 +55,6 @@ app.get("/api-oandp-getData", cors(corsOptions), async (req, res) => {
     if (fieldName.toUpperCase() === "NPI") {
       // append exact search filter to url
       url.searchParams.append("filter[NPI]", fieldVal);
-      console.log(url);
     } else {
       //when only the last or first name is submitted, use the "CONTAINS operator path"
 
