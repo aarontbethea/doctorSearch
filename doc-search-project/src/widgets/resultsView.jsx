@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import IndResult from "./npiOneResults";
 import "../styles/resultsViewStyle.css";
 import NpiOneResultModal from "./npiOneDetail";
+import {Badge} from "react-bootstrap";
 
 //style the results using JSON data
 function ResultsViewer(props) {
@@ -17,7 +18,12 @@ function ResultsViewer(props) {
 
   return (
     <div id="results">
-      <span className="badge badge-pill badge-danger">test</span>
+      <div className="container">
+        {/* Legend */}
+        Legend:{" "}
+        <Badge bg="success">Can Order/Refer</Badge>{" "}
+        <Badge bg="danger">Can NOT Order/Refer</Badge>
+      </div>
 
       <div className="d-flex justify-content-start">
         <h4>Results: {numResults}</h4>

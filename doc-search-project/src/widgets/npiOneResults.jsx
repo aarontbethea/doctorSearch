@@ -112,9 +112,11 @@ function IndResult(props) {
                   {console.log(oandpData[0][p])}
                   {console.log(p)}
                   <div className="col-sm">
-                  {oandpData[0][p] === 'Y'? (
-                  <Badge bg="success">{p}</Badge>
-                  ):(<Badge bg="danger">{p}</Badge>)}
+                    {oandpData[0][p] === "Y" ? (
+                      <Badge bg="success">{p}</Badge>
+                    ) : (
+                      <Badge bg="danger">{p}</Badge>
+                    )}
                   </div>
                 </>
               );
@@ -126,8 +128,12 @@ function IndResult(props) {
   } else {
     pecosDisplay = (
       <>
-        <p>Provider is NOT PECOS Enrolled</p>
-        
+        <div className="container justify-content-start" id="pecos-enroll">
+          <div className="row">
+            <div className="col-sm">PECOS Enrollment:</div>
+            <div className="col-sm"><Badge bg="warning">Not Enrolled</Badge></div>
+          </div>
+        </div>
       </>
     );
   }

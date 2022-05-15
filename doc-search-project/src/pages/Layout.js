@@ -13,9 +13,6 @@ const Layout = () => {
             <LinkContainer to="/nppesSearch">
               <Nav.Link>NPPES Search</Nav.Link>
             </LinkContainer>
-            <LinkContainer to="/oandpSearch">
-              <Nav.Link>O&amp;P Search</Nav.Link>
-            </LinkContainer>
             <LinkContainer to="/about">
               <Nav.Link>About</Nav.Link>
             </LinkContainer>

@@ -9,7 +9,6 @@ import reportWebVitals from './reportWebVitals';
 //get pages to render
 import Layout from "./pages/Layout.js";
 import NppesSearchPg from './pages/SearchNPPES';
-import OandPSearch from './pages/SearchOandP';
 import AboutPg from './pages/About';
 import PageNotFound from './pages/NoPage';
 
@@ -20,8 +19,6 @@ export default function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<NppesSearchPg />} />
           <Route path="nppesSearch" element={<NppesSearchPg/>} />
-          <Route path="oandpSearch" element={<OandPSearch/>} />
-
           <Route path="about" element={<AboutPg />} />
           <Route path="*" element={<PageNotFound />} />
         </Route>
