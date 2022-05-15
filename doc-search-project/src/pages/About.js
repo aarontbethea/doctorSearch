@@ -13,6 +13,8 @@ export default function AboutPg(){
                 <p>NPI Online serves to provide real-time Medicare provider enrollment data by consuming Application Programming Interfaces (APIs) 
                     available to the public by the Centers for Medicare and Medicaid Services (CMS). As such this application is made available free of charge for public use.
                     This application does not store queries, nor results.
+                    <br/>
+                    As such, this web-application, it's developer and hosting provider are not responsible for the accuracy of the information obtained. Validation of the results received is the sole responsibility of the user (that's you). 
 
                 </p>
             <h5>Data Sources </h5>
@@ -20,10 +22,11 @@ export default function AboutPg(){
                 <ListGroup.Item><a href="https://npiregistry.cms.hhs.gov/registry/help-api">NPPES Provider Registry API</a></ListGroup.Item>
                 <ListGroup.Item><a href="https://data.cms.gov/provider-characteristics/medicare-provider-supplier-enrollment/order-and-referring">Provider Enrollment, Chain and Ownership System (PECOS) API </a></ListGroup.Item>
             </ListGroup>
-            </div>
             <br/>
             <h5>Contact Us</h5>
             For general inquiries, to report bugs or for suggestions, please email us at <a href="mailto:betheatechconsultants@gmail.com">betheatechconsultants@gmail.com</a>
+            </div>
+           
         </div>
         </>
     )

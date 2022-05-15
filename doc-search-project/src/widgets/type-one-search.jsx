@@ -26,9 +26,7 @@ function IndSearchForm(props) {
   const disclaimerMsg = (
       <>
         <small><p>The results on this page are obtained IN REAL TIME from APIs offered by the Centers for Medicare &amp; Medicaid Services (CMS).
-        As such, this web-application, it's developer and hosting provider are not responsible for the accuracy of the information obtained. Validation of the results received is the sole responsibility of the user (that's you).
-        <br/><br/>
-        As a general disclaimer, the issuance of an NPI number DOES NOT indicate that the provider, or organization queried is Licensed or Credentialed.</p></small>
+        The presence of an NPI Number in results DOES NOT indicate that the provider, or organization queried is Licensed or Credentialed.</p></small>
       </>
   )
 
@@ -145,7 +143,7 @@ function IndSearchForm(props) {
 
   return (
     <div id="medicare-search">
-      <h3>NPPES Search</h3>
+      <h3>NPI Online - Provider Registry Search</h3>
       {introMsg}
       <form onSubmit={handlesubmit}>
         {/* Toggle between Individual and Organizational Providers */}
