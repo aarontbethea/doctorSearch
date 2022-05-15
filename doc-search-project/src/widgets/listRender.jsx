@@ -19,7 +19,9 @@ function RenderList(props) {
                 id={`${props.dtLabel}-${indx}`}
                 className="container"
               >
-                <small><b>--{indx +1}--</b></small>
+                <small key={`indx-${indx+1}`}>
+                  <b>--{indx + 1}--</b>
+                </small>
                 {/* iterate through each item and display */}
                 {Object.keys(listData[indx]).map((l, i) => {
                   return (
@@ -28,7 +30,11 @@ function RenderList(props) {
                       <div className="col-sm" id="field-lbl" key={`label-${i}`}>
                         {toTitleCase(l.toString().replace("_", " "))}
                       </div>
-                      <div className="col-sm" id="field-value" key={`value-${i}`}>
+                      <div
+                        className="col-sm"
+                        id="field-value"
+                        key={`value-${i}`}
+                      >
                         {checkVal(listData[indx][l])}
                       </div>
                     </div>

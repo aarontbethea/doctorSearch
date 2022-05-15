@@ -17,10 +17,8 @@ function IndResult(props) {
     //prevent default behavior
     e.preventDefault();
     if (!props.show) {
-      //console.log(props)
       props.setShow(true);
       props.setEntry(props.data);
-      console.log("Modal data set");
     }
   };
   //convert "last_updated" date to mm/dd/yyyy
@@ -82,15 +80,13 @@ function IndResult(props) {
 
   useEffect(() => {
     const checkPecosEnrollment = async (npi) => {
-      console.log("Checking OandP data");
       const BASEURL = "http://localhost:5000/api-oandp-getData";
       var queryUrl = new URL(BASEURL);
       queryUrl.searchParams.append("npi", npi);
       const response = await fetch(queryUrl);
       const jsonData = await response.json();
       setOandpData(jsonData);
-      console.log("Pecos Data Returned");
-      console.log(jsonData);
+
     };
     // call the function
     checkPecosEnrollment(props.data.number);
@@ -103,19 +99,18 @@ function IndResult(props) {
     pecosDisplay = (
       <>
         {" "}
-        <div className="flex justify-content-start" id="pecos-enroll">
-          <div className="row">
-            <div className="col-sm-4">PECOS Enrollment:</div>
+        <div className="flex justify-content-start" id="pecos-enroll" key="samplekey">
+          <div className="row" key="row-key-1">
+            <div className="col-sm-4" key={`pecos`}>PECOS Enrollment:</div>
             {pecosCols.map((p, i) => {
               return (
                 <>
-                  {console.log(oandpData[0][p])}
-                  {console.log(p)}
-                  <div className="col-sm">
+                  
+                  <div className="col-sm" key={p}>
                     {oandpData[0][p] === "Y" ? (
-                      <Badge bg="success">{p}</Badge>
+                      <Badge bg="success" key={`true-${p}`}>{p}</Badge>
                     ) : (
-                      <Badge bg="danger">{p}</Badge>
+                      <Badge bg="danger" key={`false-${p}`}>{p}</Badge>
                     )}
                   </div>
                 </>

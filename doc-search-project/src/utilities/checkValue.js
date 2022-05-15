@@ -2,7 +2,6 @@
 const checkVal = (value) =>{
     let new_value;
     if (typeof value === 'boolean'){
-        console.log("Bool")
         if (value === true) {
             new_value = "YES";
         } else {

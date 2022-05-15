@@ -25,7 +25,6 @@ function NpiOneResultModal(props) {
     }
   //handle on-close
   const onClose = () => {
-    console.log("Closing Modal");
     props.setEntry(null);
     props.setShow(false);
   };

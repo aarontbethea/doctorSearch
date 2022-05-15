@@ -16,7 +16,7 @@ function IndSearchForm(props) {
   const introMsg = (
     <>
       <p>
-        Quickly look up NPI registry details on an Individual or Organization provider.
+        Quickly look up NPI registry details &amp; PECOS enrollment status on Individual or Organization health care providers.
         <br/>
         <small><b>Pro Tip:</b> Enter an asterisk <code>" * "</code> after the first two letters in any "Name" (or "City") field to get a wider range of results. </small>
       </p>
@@ -25,7 +25,7 @@ function IndSearchForm(props) {
 
   const disclaimerMsg = (
       <>
-        <small><p>The results on this page are obtained IN REAL TIME from the API offered by the <a href="https://npiregistry.cms.hhs.gov/">NPPES Provider Registry</a>.
+        <small><p>The results on this page are obtained IN REAL TIME from APIs offered by the Centers for Medicare &amp; Medicaid Services (CMS).
         As such, this web-application, it's developer and hosting provider are not responsible for the accuracy of the information obtained. Validation of the results received is the sole responsibility of the user (that's you).
         <br/><br/>
         As a general disclaimer, the issuance of an NPI number DOES NOT indicate that the provider, or organization queried is Licensed or Credentialed.</p></small>
@@ -91,7 +91,6 @@ function IndSearchForm(props) {
   //handle radio button toggle change
   const onProviderTypeChange = (e) => {
     //log the value
-    console.log(e.target.value);
     setSearchType(e.target.value);
   };
 
@@ -129,8 +128,7 @@ function IndSearchForm(props) {
         queryUrl.searchParams.append(i, inputData[i]);
       }
     }
-    console.log("query url");
-    console.log(queryUrl.toString());
+
     //send the request
     getAPIResult(queryUrl);
   };
@@ -142,8 +140,7 @@ function IndSearchForm(props) {
     const response = await fetch(url);
     const jsonData = await response.json();
     props.setData(jsonData);
-    console.log("Request Returned");
-    console.log(jsonData);
+
   };
 
   return (
@@ -184,6 +181,7 @@ function IndSearchForm(props) {
             <option value="NPI-2">Organization</option>
           </select>
         </div>
+        -or-
         {searchName}
         {/* Address, city state and zip */}
         <div className="form-group row justify-content-between">

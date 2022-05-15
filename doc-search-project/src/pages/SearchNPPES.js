@@ -12,8 +12,7 @@ function NppesSearchPg() {
   //set up condition to render results widget
   let resForm;
   const isEmpty = Object.keys(searchData).length === 0;
-  console.log("Empty Object?");
-  console.log(isEmpty);
+
   if (!isEmpty) {
     if ('result_count' in searchData){
       resForm = <ResultsViewer searchData={searchData}/>

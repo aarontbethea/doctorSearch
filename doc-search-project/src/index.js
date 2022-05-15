@@ -11,9 +11,11 @@ import Layout from "./pages/Layout.js";
 import NppesSearchPg from './pages/SearchNPPES';
 import AboutPg from './pages/About';
 import PageNotFound from './pages/NoPage';
+import Footer from './widgets/footer';
 
 export default function App() {
   return (
+    <>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
@@ -22,8 +24,11 @@ export default function App() {
           <Route path="about" element={<AboutPg />} />
           <Route path="*" element={<PageNotFound />} />
         </Route>
+        
       </Routes>
     </BrowserRouter>
+    <Footer/>
+    </>
   );
 }
 

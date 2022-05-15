@@ -11,10 +11,8 @@ function ResultsViewer(props) {
   const [entry, setEntry] = useState(null);
   var numResults = 0;
   numResults = props.searchData.result_count;
-  console.log("Search Results Rendered");
-  console.log(props.searchData.result_count);
+
   const resultList = props.searchData.results;
-  console.log(resultList);
 
   return (
     <div id="results">
