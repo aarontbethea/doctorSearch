@@ -17,8 +17,7 @@ app.get("/api-nppes-getData", cors(corsOptions), async (req, res) => {
   const fetchOptions = {
     method: "GET",
   };
-  console.log("Query Params");
-  console.log(req.query);
+
   var url = new URL(requestEndpoint);
 
   // if ("number" in req.query) {
@@ -28,8 +27,6 @@ app.get("/api-nppes-getData", cors(corsOptions), async (req, res) => {
     url.searchParams.append(q, req.query[q]);
   }
 
-  console.log("URL");
-  console.log(url.toString());
   const response = await fetch(url, fetchOptions);
   const jsonResponse = await response.json();
   res.json(jsonResponse);
@@ -94,12 +91,10 @@ app.get("/api-oandp-getData", cors(corsOptions), async (req, res) => {
       );
     }
   }
-  console.log("OandP URL");
-  console.log(url.toString());
+
 
   const response = await fetch(url, fetchOptions);
   const jsonResponse = await response.json();
-  console.log(`JSON Response: ${jsonResponse}`);
   res.json(jsonResponse);
 });
 
