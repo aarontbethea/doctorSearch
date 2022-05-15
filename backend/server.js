@@ -1,14 +1,19 @@
 const express = require("express");
 const cors = require("cors");
 const fetch = require("node-fetch");
+const path = require("path")
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000; //starts up on preconfigured port if available, or 5000 locally.
 const app = express();
 
 app.use(cors());
 const corsOptions = {
   origin: "http://localhost:3000",
 };
+
+//This will create a middleware.
+//When you navigate to the root page, it would use the built react-app
+app.use(express.static(path.resolve(__dirname, "./doc-search-project/build")));
 
 // This function runs if the http://localhost:5000/api-nppes-getData endpoint
 // is requested with a GET request
